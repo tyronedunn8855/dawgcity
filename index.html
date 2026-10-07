@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dawg City — Specialty Hotdogs | Milwaukee</title>
+<meta name="description" content="Dawg City Specialty Hotdogs — 100% all-beef gourmet hotdogs, sausages, and brats inside 3rd St. Market Hall, Milwaukee. Order pickup or delivery.">
+<meta name="theme-color" content="#0D0A08">
+<link rel="icon" href="img/logo-t.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D0A08; --bg2:#15100D; --cream:#F4EBDD; --ash:#A79C8E;
+  --red:#E32B2B; --red-deep:#8E1111; --mustard:#F2B800;
+  --line:rgba(244,235,221,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html.lenis{height:auto;scroll-behavior:auto}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Barlow',sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,.disp{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.015em;text-transform:uppercase}
+::selection{background:var(--red);color:#fff}
+:focus-visible{outline:2px solid var(--mustard);outline-offset:3px}
+
+/* ─ nav ─ */
+nav{position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;gap:30px;padding:16px clamp(20px,4vw,56px);transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(13,10,8,.88);backdrop-filter:blur(12px);border-color:var(--line)}
+.nav-logo img{height:48px;width:auto}
+.nav-links{display:flex;gap:26px;margin-left:auto;align-items:center}
+.nav-links a{text-decoration:none;font-weight:500;font-size:15px;letter-spacing:.04em;color:var(--cream);opacity:.8;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.btn{display:inline-block;font-family:'Anton',sans-serif;letter-spacing:.07em;font-size:15.5px;text-transform:uppercase;text-decoration:none;padding:13px 26px;border:1px solid transparent;transition:background .25s,color .25s,border-color .25s}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:var(--cream);color:var(--bg)}
+.btn-line{border-color:rgba(244,235,221,.35);color:var(--cream)}
+.btn-line:hover{border-color:var(--cream)}
+.nav-links .btn{padding:10px 20px}
+
+/* ─ hero ─ */
+#hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:-10% 0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 60%;opacity:.5}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,10,8,.55) 0%,rgba(13,10,8,.25) 45%,var(--bg) 96%)}
+.hero-inner{position:relative;z-index:1;width:100%;padding:140px clamp(20px,4vw,56px) 84px;max-width:1360px;margin:0 auto}
+.hero-kick{display:flex;align-items:center;gap:12px;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--mustard);margin-bottom:18px}
+.hero-kick::before{content:'';width:34px;height:1px;background:var(--mustard)}
+h1{font-size:clamp(58px,10.5vw,164px);line-height:.93}
+h1 .hl{display:block;overflow:hidden}
+h1 .hl i{display:inline-block;font-style:normal}
+h1 .red{color:var(--red)}
+.hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:36px;margin-top:34px;flex-wrap:wrap}
+.hero-sub{max-width:470px;color:var(--ash);font-size:18px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.scroll-cue{position:absolute;bottom:26px;left:50%;width:1px;height:46px;background:var(--line);overflow:hidden;z-index:1}
+.scroll-cue i{display:block;width:100%;height:50%;background:var(--mustard);animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:translateY(-100%)}100%{transform:translateY(200%)}}
+
+/* ─ ticker ─ */
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--bg2)}
+.ticker-track{display:flex;width:max-content;animation:tick 30s linear infinite;font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.2em;padding:13px 0;text-transform:uppercase;color:var(--ash)}
+.ticker-track em{font-style:normal;color:var(--red);padding:0 22px}
+@keyframes tick{to{transform:translateX(-33.333%)}}
+
+/* ─ sections ─ */
+section{padding:clamp(76px,10vw,140px) clamp(20px,4vw,56px) 0}
+.wrap{max-width:1360px;margin:0 auto}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:clamp(34px,4.5vw,60px)}
+.sec-kick{font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--mustard);display:block;margin-bottom:10px}
+h2{font-size:clamp(40px,5.6vw,84px);line-height:.98}
+.sec-note{max-width:400px;color:var(--ash);font-size:16px}
+
+/* ─ signature ─ */
+.sig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,28px)}
+.sig{position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--line)}
+.sig img{width:100%;aspect-ratio:3/3.6;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1);opacity:.92}
+.sig:hover img{transform:scale(1.05)}
+.sig-info{position:absolute;inset:auto 0 0;padding:26px 22px 20px;background:linear-gradient(to top,rgba(13,10,8,.92) 30%,transparent)}
+.sig-info h3{font-size:24px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.sig-info h3 span{color:var(--mustard);font-size:20px}
+.sig-info p{color:var(--ash);font-size:15px;margin-top:5px}
+
+/* ─ menu ─ */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:clamp(26px,3vw,40px)}
+.tab{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:1px solid var(--line);color:var(--ash);padding:11px 22px;cursor:pointer;transition:all .25s}
+.tab:hover{color:var(--cream);border-color:rgba(244,235,221,.4)}
+.tab.on{background:var(--red);border-color:var(--red);color:#fff}
+.panel{display:none;opacity:0;transform:translateY(14px)}
+.panel.on{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(40px,5vw,90px);animation:panein .5s ease forwards}
+@keyframes panein{to{opacity:1;transform:none}}
+.mi{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:17px 0;border-bottom:1px solid var(--line)}
+.mi-name{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:.05em;text-transform:uppercase}
+.mi-desc{font-size:15px;color:var(--ash);margin-top:3px;max-width:430px}
+.mi-dots{flex:1;border-bottom:1px dotted rgba(244,235,221,.25);transform:translateY(-5px);min-width:30px}
+.mi-price{font-family:'Anton',sans-serif;font-size:18px;color:var(--mustard);white-space:nowrap}
+.menu-cta{margin-top:clamp(28px,3.4vw,44px);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.menu-fine{font-size:14px;color:var(--ash)}
+.fish-note{grid-column:1/-1;margin-top:8px;border:1px solid var(--line);background:var(--bg2);padding:16px 20px;font-size:15px;color:var(--ash)}
+.fish-note b{color:var(--mustard);font-weight:600}
+
+/* ─ about ─ */
+.about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,90px);align-items:center}
+.about-media{overflow:hidden}
+.about-media img{width:100%;aspect-ratio:4/3;object-fit:cover;transform:scale(1.12)}
+.about-lead{font-family:'Anton',sans-serif;font-size:clamp(24px,2.6vw,36px);line-height:1.25;text-transform:none;letter-spacing:.01em;margin-bottom:20px}
+.about-lead em{font-style:normal;color:var(--red)}
+.about-grid p:not(.about-lead){color:var(--ash);margin-bottom:14px}
+.about-facts{display:flex;gap:36px;margin-top:26px;flex-wrap:wrap}
+.af b{font-family:'Anton',sans-serif;font-size:30px;display:block;color:var(--cream)}
+.af span{font-size:14px;color:var(--ash);letter-spacing:.06em;text-transform:uppercase}
+
+/* ─ gallery ─ */
+.gal{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.4vw,20px)}
+.g{overflow:hidden;background:var(--bg2);border:1px solid var(--line)}
+.g img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.g:hover img{transform:scale(1.05)}
+.g1{grid-column:span 7}.g1 img{aspect-ratio:16/9}
+.g2{grid-column:span 5}.g2 img{aspect-ratio:4/3}
+.g3{grid-column:span 4}.g3 img{aspect-ratio:3/3.4}
+.g4{grid-column:span 4}.g4 img{aspect-ratio:3/3.4}
+.g5{grid-column:span 4}.g5 img{aspect-ratio:3/3.4}
+
+/* ─ visit ─ */
+#visit .wrap{border:1px solid var(--line);background:var(--bg2);display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:clamp(26px,3.4vw,56px);padding:clamp(28px,4vw,60px)}
+#visit h2{font-size:clamp(32px,3.6vw,52px)}
+#visit h3{font-size:15px;letter-spacing:.2em;color:var(--mustard);margin-bottom:14px}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line);font-size:16px}
+.hours li:last-child{border:0}
+.hours span:last-child{color:var(--ash)}
+.visit-p{color:var(--ash);font-size:16px;margin-bottom:10px}
+.visit-p b{color:var(--cream);font-weight:600}
+.visit-link{display:inline-block;color:var(--mustard);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(242,184,0,.4);padding-bottom:1px}
+.visit-link:hover{border-color:var(--mustard)}
+#visit .btn{margin-top:18px}
+
+/* ─ cta band ─ */
+#order-band{padding:clamp(76px,10vw,140px) clamp(20px,4vw,56px)}
+.band{position:relative;overflow:hidden;border:1px solid var(--line);text-align:center;padding:clamp(56px,8vw,110px) 24px}
+.band-bg{position:absolute;inset:0}
+.band-bg img{width:100%;height:100%;object-fit:cover;opacity:.25}
+.band-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(13,10,8,.25),var(--bg) 85%)}
+.band > *:not(.band-bg){position:relative}
+.band h2{font-size:clamp(44px,6.6vw,96px)}
+.band p{color:var(--ash);margin:14px auto 30px;max-width:460px}
+.band .hero-cta{justify-content:center}
+
+/* ─ footer ─ */
+footer{border-top:1px solid var(--line);padding:40px clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.f-mark{display:flex;align-items:center;gap:14px}
+.f-mark img{height:44px}
+.f-mark span{font-family:'Anton',sans-serif;font-size:17px;letter-spacing:.1em;text-transform:uppercase}
+.f-links{display:flex;gap:22px;flex-wrap:wrap}
+.f-links a{font-size:15px;color:var(--ash);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--cream)}
+.f-small{width:100%;text-align:center;color:rgba(167,156,142,.55);font-size:13px;margin-top:10px}
+
+/* reveals */
+[data-reveal]{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+[data-reveal].in{opacity:1;transform:none}
+
+@media (max-width:920px){
+  .nav-links a:not(.btn){display:none}
+  .sig-grid{grid-template-columns:1fr}
+  .sig img{aspect-ratio:16/10}
+  .panel.on{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}
+  .gal{grid-template-columns:repeat(2,1fr)}
+  .g1,.g2,.g3,.g4,.g5{grid-column:span 2}
+  #visit .wrap{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  [data-reveal]{opacity:1;transform:none}
+  .ticker-track{animation:none}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="#hero" aria-label="Dawg City home"><img src="img/logo-t.png" alt="Dawg City Hot Dog logo"></a>
+  <div class="nav-links">
+    <a href="#signature">Signature</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">Our Story</a>
+    <a href="#visit">Visit</a>
+    <a class="btn btn-red" href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">Order Now</a>
+  </div>
+</nav>
+
+<header id="hero">
+  <div class="hero-bg" id="hero-bg"><img src="img/dog-loaded.jpg" alt="" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="hero-kick">3rd St. Market Hall · Milwaukee</p>
+    <h1 aria-label="The Specialty Dawg">
+      <span class="hl"><i>The Specialty</i></span>
+      <span class="hl red"><i>Dawg</i></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-sub">100% all-beef hotdogs in natural casing, built with fresh local ingredients and flavors from East Coast and Southern cities.</p>
+      <div class="hero-cta">
+        <a class="btn btn-red" href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">Order Pickup</a>
+        <a class="btn btn-line" href="https://www.doordash.com/store/dawg-city---3rd-street-market-hall-milwaukee-23983580/" target="_blank" rel="noopener">DoorDash</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><i></i></div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div>100% All-Beef<em>·</em>Natural Casing<em>·</em>Usinger Brats<em>·</em>Friday Fish Dinners<em>·</em>Est. 2021<em>·</em></div>
+    <div>100% All-Beef<em>·</em>Natural Casing<em>·</em>Usinger Brats<em>·</em>Friday Fish Dinners<em>·</em>Est. 2021<em>·</em></div>
+    <div>100% All-Beef<em>·</em>Natural Casing<em>·</em>Usinger Brats<em>·</em>Friday Fish Dinners<em>·</em>Est. 2021<em>·</em></div>
+  </div>
+</div>
+
+<section id="signature">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="sec-kick">House Favorites</span>
+        <h2>Signature Dawgs</h2>
+      </div>
+      <p class="sec-note">Three of the baskets people cross the hall for. The full lineup runs nineteen deep.</p>
+    </div>
+    <div class="sig-grid">
+      <figure class="sig" data-reveal>
+        <img src="img/dog-loaded.jpg" alt="Boss Hog hotdog loaded with pulled pork and BBQ sauce">
+        <figcaption class="sig-info">
+          <h3>Boss Hog <span>$10.95</span></h3>
+          <p>Pulled pork, crispy onions, jalapeños, BBQ sauce</p>
+        </figcaption>
+      </figure>
+      <figure class="sig" data-reveal>
+        <img src="img/dog-bacon.jpg" alt="Hickory hotdog with bacon and cheddar sauce">
+        <figcaption class="sig-info">
+          <h3>Hickory <span>$8.95</span></h3>
+          <p>Hickory bacon, cheddar cheese sauce, grilled onions, BBQ</p>
+        </figcaption>
+      </figure>
+      <figure class="sig" data-reveal>
+        <img src="img/cheese-fries.jpg" alt="Loaded cheese fries with bacon and scallions">
+        <figcaption class="sig-info">
+          <h3>Loaded Cheese Fries <span>$8.75</span></h3>
+          <p>Seasoned fries, cheese sauce, bacon, scallions, chipotle</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="sec-kick">The Menu</span>
+        <h2>Build Your Craving</h2>
+      </div>
+      <p class="sec-note">Menu items and prices subject to change — see the store or online ordering for current offerings.</p>
+    </div>
+
+    <div class="tabs" role="tablist" data-reveal>
+      <button class="tab on" role="tab" aria-selected="true" data-panel="p-dogs">Hot Dogs</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-sand">Sandwiches</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-bites">Big Bites &amp; Sides</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-fish">Fish Fridays</button>
+    </div>
+
+    <div id="p-dogs" class="panel on" role="tabpanel">
+      <div>
+        <div class="mi"><div><div class="mi-name">Philly Cheese Steak</div><div class="mi-desc">Shaved steak, grilled peppers, onions, provolone, mayo</div></div><i class="mi-dots"></i><span class="mi-price">$10.95</span></div>
+        <div class="mi"><div><div class="mi-name">Boss Hog</div><div class="mi-desc">Pulled pork, crispy onions, jalapeños, BBQ sauce</div></div><i class="mi-dots"></i><span class="mi-price">$10.95</span></div>
+        <div class="mi"><div><div class="mi-name">Reuben Dog</div><div class="mi-desc">Corned beef, American cheese, sauerkraut, mustard or thousand island</div></div><i class="mi-dots"></i><span class="mi-price">$10.95</span></div>
+        <div class="mi"><div><div class="mi-name">Quarter Pound Dog</div><div class="mi-desc">Pulled pork, crispy onions, jalapeño peppers, BBQ sauce</div></div><i class="mi-dots"></i><span class="mi-price">$10.95</span></div>
+        <div class="mi"><div><div class="mi-name">Veggie Dog</div><div class="mi-desc">Ketchup, mustard, onions, relish — or build your own</div></div><i class="mi-dots"></i><span class="mi-price">$9.99</span></div>
+        <div class="mi"><div><div class="mi-name">Chicago</div><div class="mi-desc">Mustard, sweet relish, onions, tomato, sport pepper, celery salt</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">Slaw</div><div class="mi-desc">Coleslaw, honey bacon, Dawg City sweet &amp; spicy sauce</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">Pepper</div><div class="mi-desc">Cheese sauce, Dawg City mild sauce, chopped onions, sport peppers</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+      </div>
+      <div>
+        <div class="mi"><div><div class="mi-name">Chili Cheese</div><div class="mi-desc">Chili, shredded cheese, chopped white onions</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">BLT</div><div class="mi-desc">Lettuce, tomato, bacon, mayo, celery salt</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">Santa Fe</div><div class="mi-desc">Guacamole, pico de gallo, cotija cheese, lime, cilantro</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">Hickory</div><div class="mi-desc">Hickory bacon, cheddar cheese sauce, grilled onions, BBQ sauce</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">Center Street Polish</div><div class="mi-desc">Polish sausage, grilled onions, mustard, sport peppers</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">Brat</div><div class="mi-desc">Grilled Usinger brat, sauerkraut, grilled onions, smoked BBQ</div></div><i class="mi-dots"></i><span class="mi-price">$8.95</span></div>
+        <div class="mi"><div><div class="mi-name">Classic</div><div class="mi-desc">Ketchup, mustard, onions, relish</div></div><i class="mi-dots"></i><span class="mi-price">$7.95</span></div>
+        <div class="mi"><div><div class="mi-name">Corn Dog</div><div class="mi-desc">Battered hot dog with mustard</div></div><i class="mi-dots"></i><span class="mi-price">$7.95</span></div>
+      </div>
+    </div>
+
+    <div id="p-sand" class="panel" role="tabpanel">
+      <div>
+        <div class="mi"><div><div class="mi-name">Pulled Pork</div><div class="mi-desc">Pulled pork, white American cheese, coleslaw</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">Philly Cheesesteak</div><div class="mi-desc">Shaved steak, grilled peppers, onions, white American, lettuce, tomato, jalapeños, chipotle</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">Italian Beef</div><div class="mi-desc">Sliced roast beef, white American cheese, giardiniera</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+      </div>
+      <div>
+        <div class="mi"><div><div class="mi-name">Reuben</div><div class="mi-desc">Corned beef, American cheese, sauerkraut, mustard or thousand island</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">Cubano</div><div class="mi-desc">Pulled pork, ham, white American, pickles, spicy mustard</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">Corned Beef</div><div class="mi-desc">Sliced corned beef, spicy mustard</div></div><i class="mi-dots"></i><span class="mi-price">$11.95</span></div>
+      </div>
+    </div>
+
+    <div id="p-bites" class="panel" role="tabpanel">
+      <div>
+        <div class="mi"><div><div class="mi-name">Chicken Fries</div><div class="mi-desc">Seasoned fries, bacon, cheese sauce, tenders, spicy sauce, ranch</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">Philly Fries</div><div class="mi-desc">Seasoned fries, shaved steak, onions, peppers, white American, chipotle</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">Buffalo Chicken Fries</div><div class="mi-desc">Fries, cheese sauce, tenders, buffalo, ranch, bleu cheese, chives</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">Steak Nachos</div><div class="mi-desc">Shaved steak, grilled peppers &amp; onions, tomato, jalapeños, sour cream</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
+        <div class="mi"><div><div class="mi-name">BBQ Nachos</div><div class="mi-desc">Tortilla chips, nacho cheese, red onion, tomato, jalapeños, BBQ pulled pork</div></div><i class="mi-dots"></i><span class="mi-price">$11.95</span></div>
+      </div>
+      <div>
+        <div class="mi"><div><div class="mi-name">Loaded Cheese Fries</div><div class="mi-desc">Seasoned fries, cheese sauce, bacon, scallions, chipotle</div></div><i class="mi-dots"></i><span class="mi-price">$8.75</span></div>
+        <div class="mi"><div><div class="mi-name">Cheese Curds</div><div class="mi-desc">Wisconsin classic</div></div><i class="mi-dots"></i><span class="mi-price">$5.95</span></div>
+        <div class="mi"><div><div class="mi-name">Battered Onion Rings</div><div class="mi-desc">With chipotle sauce</div></div><i class="mi-dots"></i><span class="mi-price">$3.95</span></div>
+        <div class="mi"><div><div class="mi-name">Regular Fries</div></div><i class="mi-dots"></i><span class="mi-price">$2.75</span></div>
+        <div class="mi"><div><div class="mi-name">Bottled Soda</div><div class="mi-desc">Assorted</div></div><i class="mi-dots"></i><span class="mi-price">$3.50</span></div>
+        <div class="mi"><div><div class="mi-name">Bottled Water</div></div><i class="mi-dots"></i><span class="mi-price">$2.50</span></div>
+      </div>
+    </div>
+
+    <div id="p-fish" class="panel" role="tabpanel">
+      <div>
+        <div class="mi"><div><div class="mi-name">Catfish Dinner</div><div class="mi-desc">Fried catfish with seasoned fries and coleslaw</div></div><i class="mi-dots"></i><span class="mi-price">$19.99</span></div>
+        <div class="mi"><div><div class="mi-name">Perch</div><div class="mi-desc">Fried perch with fries and coleslaw</div></div><i class="mi-dots"></i><span class="mi-price">$3.50</span></div>
+      </div>
+      <div>
+        <div class="fish-note" style="grid-column:auto"><b>Fridays only.</b> Fish dinners run while supplies last — come early.</div>
+      </div>
+    </div>
+
+    <div class="menu-cta" data-reveal>
+      <a class="btn btn-red" href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">Order Pickup</a>
+      <a class="btn btn-line" href="https://www.doordash.com/store/dawg-city---3rd-street-market-hall-milwaukee-23983580/" target="_blank" rel="noopener">Order Delivery</a>
+      <span class="menu-fine">Dine-in bar on the first floor, West Hall.</span>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-media" data-reveal><img id="about-img" src="img/counter.jpg" alt="Hotdogs at the Dawg City counter"></div>
+    <div data-reveal>
+      <span class="sec-kick">Our Story</span>
+      <p class="about-lead">Founded in 2021 by <em>Ken and Latonya Hughes</em>, Dawg City brings East Coast and Southern flavor to downtown Milwaukee.</p>
+      <p>Every dawg starts with a 100% all-beef hotdog in its natural casing, topped with quality sausage, brats, and fresh local produce. Chicago sport peppers, Philly shaved steak, Southern pulled pork and slaw — one basket at a time.</p>
+      <p>Find us on the first floor of 3rd St. Market Hall. Grab a seat at the dine-in bar or carry your basket over to your game.</p>
+      <div class="about-facts">
+        <div class="af"><b>2021</b><span>Family founded</span></div>
+        <div class="af"><b>19</b><span>Styles of dawgs</span></div>
+        <div class="af"><b>100%</b><span>All-beef, natural casing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="sec-kick">The Goods</span>
+        <h2>Straight Out the Basket</h2>
+      </div>
+    </div>
+    <div class="gal">
+      <div class="g g1" data-reveal><img src="img/spread.jpg" alt="Spread of Dawg City baskets"></div>
+      <div class="g g2" data-reveal><img src="img/dog-bacon.jpg" alt="Bacon-topped specialty hotdog"></div>
+      <div class="g g3" data-reveal><img src="img/dog-loaded.jpg" alt="Loaded specialty hotdog"></div>
+      <div class="g g4" data-reveal><img src="img/cheese-fries.jpg" alt="Loaded cheese fries"></div>
+      <div class="g g5" data-reveal><img src="img/dog-jalapeno.jpg" alt="Hotdog with jalapeños and crispy onions"></div>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="wrap" data-reveal>
+    <div>
+      <span class="sec-kick">Visit</span>
+      <h2>Find the Hall</h2>
+      <p class="visit-p" style="margin-top:14px"><b>3rd St. Market Hall</b><br>First Floor, West Hall<br>275 W Wisconsin Ave<br>Milwaukee, WI 53203</p>
+      <a class="visit-link" href="https://maps.google.com/?q=3rd+St+Market+Hall+Milwaukee" target="_blank" rel="noopener">Get directions</a>
+    </div>
+    <div>
+      <h3>Hours</h3>
+      <ul class="hours">
+        <li><span>Mon – Thu</span><span>11 AM – 8 PM</span></li>
+        <li><span>Fri – Sat</span><span>11 AM – 10 PM</span></li>
+        <li><span>Sun</span><span>11 AM – 7 PM</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p class="visit-p">Questions or catering:</p>
+      <a class="visit-link" href="mailto:dawgcitymke@gmail.com">dawgcitymke@gmail.com</a><br>
+      <a class="btn btn-line" href="https://www.instagram.com/dawgcityhotdog/" target="_blank" rel="noopener">@dawgcityhotdog</a>
+    </div>
+  </div>
+</section>
+
+<div id="order-band">
+  <div class="band" data-reveal>
+    <div class="band-bg"><img src="img/dog-bacon.jpg" alt="" aria-hidden="true"></div>
+    <h2>Hungry Yet?</h2>
+    <p>Skip the line. Order ahead for pickup, or get it delivered hot to your door.</p>
+    <div class="hero-cta">
+      <a class="btn btn-red" href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">Order Pickup</a>
+      <a class="btn btn-line" href="https://www.doordash.com/store/dawg-city---3rd-street-market-hall-milwaukee-23983580/" target="_blank" rel="noopener">DoorDash</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-mark">
+    <img src="img/logo-t.png" alt="">
+    <span>Dawg City Specialty Hotdogs</span>
+  </div>
+  <div class="f-links">
+    <a href="https://www.facebook.com/DawgCityHotDog" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/dawgcityhotdog/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">Pickup</a>
+    <a href="https://www.doordash.com/store/dawg-city---3rd-street-market-hall-milwaukee-23983580/" target="_blank" rel="noopener">DoorDash</a>
+  </div>
+  <small class="f-small">© 2026 Dawg City Specialty Hotdogs · 3rd St. Market Hall, Milwaukee, WI</small>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+'use strict';
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* smooth scroll */
+var lenis = null;
+if (!reduced && window.Lenis) {
+  lenis = new Lenis({ lerp: .1 });
+  (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })();
+}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(t, { offset: -70 }); else t.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* nav */
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 30); }, {passive:true});
+
+/* hero entrance + parallax */
+if (!reduced && window.gsap) {
+  gsap.fromTo('h1 .hl i', { yPercent: 110 }, { yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: .14, delay: .15 });
+  gsap.fromTo('.hero-kick, .hero-foot', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .9, delay: .6, stagger: .18, ease: 'power2.out' });
+  if (window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to('#hero-bg', { yPercent: 16, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.fromTo('#about-img', { scale: 1.18 }, { scale: 1.02, ease: 'none',
+      scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true } });
+    if (lenis) lenis.on('scroll', ScrollTrigger.update);
+  }
+}
+
+/* reveals */
+var els = document.querySelectorAll('[data-reveal]');
+if ('IntersectionObserver' in window && !reduced) {
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: .12, rootMargin: '0px 0px -4% 0px' });
+  els.forEach(function(el){ io.observe(el); });
+} else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+/* menu tabs */
+var tabs = document.querySelectorAll('.tab');
+tabs.forEach(function(tb){
+  tb.addEventListener('click', function(){
+    tabs.forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+    tb.classList.add('on');
+    tb.setAttribute('aria-selected','true');
+    document.getElementById(tb.dataset.panel).classList.add('on');
+  });
+});
+})();
+</script>
+</body>
+</html>

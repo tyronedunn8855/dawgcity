@@ -6,25 +6,44 @@
 <title>Dawg City | Specialty Hotdogs, Milwaukee</title>
 <meta name="description" content="Dawg City Specialty Hotdogs. 100% all-beef gourmet hotdogs, sausages, and brats inside 3rd St. Market Hall, Milwaukee. Order pickup or delivery.">
 <meta name="theme-color" content="#0B0807">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dawg City">
 <meta property="og:title" content="Dawg City | Specialty Hotdogs">
 <meta property="og:description" content="100% all-beef specialty hotdogs inside 3rd St. Market Hall, Milwaukee.">
-<meta property="og:image" content="img/hero.jpg">
-<link rel="icon" href="img/logo-t.png">
+<meta property="og:url" content="https://dawgcity.vercel.app/">
+<meta property="og:image" content="https://dawgcity.vercel.app/img/hero.jpg">
+<meta property="og:image:width" content="1209">
+<meta property="og:image:height" content="788">
+<meta property="og:image:alt" content="Chili cheese and Chicago-style hotdogs from Dawg City">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://dawgcity.vercel.app/">
+<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preload" as="image" href="img/hero.jpg" fetchpriority="high">
+<script>
+/* Runs before paint: mark JS on, and skip the intro loader for anyone who has
+   already seen it this browser session (or who prefers reduced motion). */
+(function(d){var c=d.documentElement.classList;c.add('js');
+try{if(sessionStorage.getItem('dc-seen')||matchMedia('(prefers-reduced-motion: reduce)').matches)c.add('no-loader');sessionStorage.setItem('dc-seen','1');}catch(e){}
+/* safety net: if scripts fail to load, never leave the page stuck behind the loader */
+setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.classList.remove('loading');c.add('no-loader');}},7000);})(document);
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="loading">
+<a class="skip" href="#menu">Skip to the menu</a>
 
 <div id="loader" aria-hidden="true">
-  <img src="img/logo-t.png" alt="">
+  <img src="img/logo-t.png" alt="" width="216" height="234">
   <div class="ld-row"><span>LOADING</span><div class="ld-bar"><i id="ld-bar"></i></div><span id="ld-num">0</span></div>
 </div>
 <div id="cursor"><span>VIEW</span></div>
 
-<nav id="nav">
-  <a class="nav-logo" href="#hero" aria-label="Dawg City home"><img src="img/logo-t.png" alt="Dawg City Hot Dog logo"></a>
+<nav id="nav" aria-label="Main">
+  <a class="nav-logo" href="#hero" aria-label="Dawg City home"><img src="img/logo-t.png" alt="Dawg City Hot Dog logo" width="216" height="234"></a>
   <div class="nav-links">
     <a href="#signature">Signature</a>
     <a href="#menu">Menu</a>
@@ -37,8 +56,9 @@
   </div>
 </nav>
 
+<main id="main">
 <header id="hero">
-  <div class="hero-media"><img id="hero-img" src="img/hero.jpg" alt="Chili cheese and Chicago-style hotdogs from Dawg City"></div>
+  <div class="hero-media"><img id="hero-img" src="img/hero.jpg" width="1209" height="788" fetchpriority="high" alt="Chili cheese and Chicago-style hotdogs from Dawg City"></div>
   <div class="hero-inner">
     <div class="hero-tag rv-hero"><i></i><span id="open-status">3rd St. Market Hall, Milwaukee</span></div>
     <h1 aria-label="The Specialty Dawg of Milwaukee">
@@ -81,25 +101,25 @@
     </div>
     <div class="sig-grid">
       <div class="tilt"><article class="card" data-cursor="view">
-        <img src="img/dog-jalapeno.jpg" alt="Boss Hogg hotdog with pulled pork, crispy onions, and BBQ sauce">
+        <img loading="lazy" decoding="async" width="396" height="297" src="img/dog-jalapeno.jpg" alt="Boss Hogg hotdog with pulled pork, crispy onions, and BBQ sauce">
         <span class="card-num">No. 01</span>
         <div class="card-info"><div class="card-top"><h3>Boss Hogg</h3><span class="price">$10.95</span></div><p>Pulled pork, crispy onions, jalapeños, BBQ sauce</p></div>
         <div class="glare"></div>
       </article></div>
       <div class="tilt"><article class="card" data-cursor="view">
-        <img src="img/hickory.jpg" alt="Hickory hotdog with bacon, cheddar cheese sauce, and grilled onions">
+        <img loading="lazy" decoding="async" width="800" height="1001" src="img/hickory.jpg" alt="Hickory hotdog with bacon, cheddar cheese sauce, and grilled onions">
         <span class="card-num">No. 02</span>
         <div class="card-info"><div class="card-top"><h3>Hickory</h3><span class="price">$8.95</span></div><p>Bacon, cheddar cheese sauce, grilled onions, smoked BBQ</p></div>
         <div class="glare"></div>
       </article></div>
       <div class="tilt"><article class="card" data-cursor="view">
-        <img src="img/dog-bacon.jpg" alt="Slaw dawg with coleslaw, bacon, and spicy sauce">
+        <img loading="lazy" decoding="async" width="800" height="638" src="img/dog-bacon.jpg" alt="Slaw dawg with coleslaw, bacon, and spicy sauce">
         <span class="card-num">No. 03</span>
         <div class="card-info"><div class="card-top"><h3>Slaw</h3><span class="price">$8.95</span></div><p>Creamy coleslaw, honey, bacon, Dawg City spicy sauce</p></div>
         <div class="glare"></div>
       </article></div>
       <div class="tilt"><article class="card" data-cursor="view">
-        <img src="img/chili-cheese.jpg" alt="Chili cheese hotdog with shredded cheddar and white onions">
+        <img loading="lazy" decoding="async" width="806" height="762" src="img/chili-cheese.jpg" alt="Chili cheese hotdog with shredded cheddar and white onions">
         <span class="card-num">No. 04</span>
         <div class="card-info"><div class="card-top"><h3>Chili Cheese</h3><span class="price">$8.95</span></div><p>Chili, shredded cheddar cheese, white onions</p></div>
         <div class="glare"></div>
@@ -120,15 +140,15 @@
     </div>
 
     <div class="menu-shell rv">
-      <div class="tabs" role="tablist">
+      <div class="tabs" role="tablist" aria-label="Menu categories">
         <span class="tab-ind" id="tab-ind"></span>
-        <button class="tab on" role="tab" aria-selected="true" data-panel="p-dogs">Hot Dogs</button>
-        <button class="tab" role="tab" aria-selected="false" data-panel="p-sand">Sandwiches</button>
-        <button class="tab" role="tab" aria-selected="false" data-panel="p-bites">Big Bites &amp; Sides</button>
-        <button class="tab" role="tab" aria-selected="false" data-panel="p-fish">Fish Fridays</button>
+        <button class="tab on" role="tab" id="t-p-dogs" aria-selected="true" aria-controls="p-dogs" tabindex="0" data-panel="p-dogs">Hot Dogs</button>
+        <button class="tab" role="tab" id="t-p-sand" aria-selected="false" aria-controls="p-sand" tabindex="-1" data-panel="p-sand">Sandwiches</button>
+        <button class="tab" role="tab" id="t-p-bites" aria-selected="false" aria-controls="p-bites" tabindex="-1" data-panel="p-bites">Big Bites &amp; Sides</button>
+        <button class="tab" role="tab" id="t-p-fish" aria-selected="false" aria-controls="p-fish" tabindex="-1" data-panel="p-fish">Fish Fridays</button>
       </div>
 
-      <div id="p-dogs" class="panel on" role="tabpanel">
+      <div id="p-dogs" class="panel on" role="tabpanel" aria-labelledby="t-p-dogs" tabindex="0">
         <div>
           <div class="mi"><div><div class="mi-name">Build Your Own</div><div class="mi-desc">Pick your toppings and make it yours</div></div><i class="mi-dots"></i><span class="mi-price">$7.95</span></div>
           <div class="mi"><div><div class="mi-name">Philly Cheese Steak</div><div class="mi-desc">Shaved steak, grilled peppers, onions, white American cheese, mayo</div></div><i class="mi-dots"></i><span class="mi-price">$10.95</span></div>
@@ -152,7 +172,7 @@
         </div>
       </div>
 
-      <div id="p-sand" class="panel" role="tabpanel">
+      <div id="p-sand" class="panel" role="tabpanel" aria-labelledby="t-p-sand" tabindex="0">
         <div>
           <div class="mi"><div><div class="mi-name">Philly Cheesesteak</div><div class="mi-desc">Shaved steak on a roll with cheese, grilled peppers, and onions</div></div><i class="mi-dots"></i><span class="mi-price">$12.99</span></div>
           <div class="mi"><div><div class="mi-name">Pork &amp; Slaw</div><div class="mi-desc">Pulled pork, white American cheese, coleslaw</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
@@ -165,7 +185,7 @@
         </div>
       </div>
 
-      <div id="p-bites" class="panel" role="tabpanel">
+      <div id="p-bites" class="panel" role="tabpanel" aria-labelledby="t-p-bites" tabindex="0">
         <div>
           <div class="mi"><div><div class="mi-name">Chicken Fries</div><div class="mi-desc">Seasoned fries, cheese sauce, chicken tenders, Dawg City sauce, ranch, bacon, scallions</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
           <div class="mi"><div><div class="mi-name">Philly Fries</div><div class="mi-desc">Seasoned fries, shaved steak, onions, green peppers, provolone, chipotle sauce</div></div><i class="mi-dots"></i><span class="mi-price">$12.95</span></div>
@@ -186,7 +206,7 @@
         </div>
       </div>
 
-      <div id="p-fish" class="panel" role="tabpanel">
+      <div id="p-fish" class="panel" role="tabpanel" aria-labelledby="t-p-fish" tabindex="0">
         <div>
           <div class="mi"><div><div class="mi-name">Catfish Dinner</div><div class="mi-desc">Fried catfish with seasoned fries and coleslaw</div></div><i class="mi-dots"></i><span class="mi-price">$19.99</span></div>
           <div class="mi"><div><div class="mi-name">Add Perch</div><div class="mi-desc">Add fried perch to your dinner</div></div><i class="mi-dots"></i><span class="mi-price">+$3.50</span></div>
@@ -221,12 +241,12 @@
   </div>
   <div class="reel-pin" id="reel-pin">
     <div class="reel-track" id="reel-track">
-      <figure class="shot" data-cursor="view"><div class="shot-img"><img src="img/hero.jpg" alt="Chili cheese and Chicago dawgs"></div><figcaption><b>Chili Cheese &amp; Chicago</b><span>$8.95 each</span></figcaption></figure>
-      <figure class="shot tall" data-cursor="view"><div class="shot-img"><img src="img/cheese-fries.jpg" alt="Loaded fries"></div><figcaption><b>Loaded Fries</b><span>$8.75</span></figcaption></figure>
-      <figure class="shot" data-cursor="view"><div class="shot-img"><img src="img/spread.jpg" alt="Spread of Dawg City dawgs, fries, and wings"></div><figcaption><b>The Full Spread</b><span>Bring the crew</span></figcaption></figure>
-      <figure class="shot tall" data-cursor="view"><div class="shot-img"><img src="img/dog-bacon.jpg" alt="Slaw dawg"></div><figcaption><b>Slaw</b><span>$8.95</span></figcaption></figure>
-      <figure class="shot" data-cursor="view"><div class="shot-img"><img src="img/counter.jpg" alt="Dawgs on the Dawg City counter"></div><figcaption><b>Counter Classics</b><span>From $7.95</span></figcaption></figure>
-      <figure class="shot tall" data-cursor="view"><div class="shot-img"><img src="img/hickory.jpg" alt="Hickory dawg"></div><figcaption><b>Hickory</b><span>$8.95</span></figcaption></figure>
+      <figure class="shot" data-cursor="view"><div class="shot-img"><img loading="lazy" decoding="async" width="1209" height="788" src="img/hero.jpg" alt="Chili cheese and Chicago dawgs"></div><figcaption><b>Chili Cheese &amp; Chicago</b><span>$8.95 each</span></figcaption></figure>
+      <figure class="shot tall" data-cursor="view"><div class="shot-img"><img loading="lazy" decoding="async" width="640" height="800" src="img/cheese-fries.jpg" alt="Loaded fries"></div><figcaption><b>Loaded Fries</b><span>$8.75</span></figcaption></figure>
+      <figure class="shot" data-cursor="view"><div class="shot-img"><img loading="lazy" decoding="async" width="611" height="365" src="img/spread.jpg" alt="Spread of Dawg City dawgs, fries, and wings"></div><figcaption><b>The Full Spread</b><span>Bring the crew</span></figcaption></figure>
+      <figure class="shot tall" data-cursor="view"><div class="shot-img"><img loading="lazy" decoding="async" width="800" height="638" src="img/dog-bacon.jpg" alt="Slaw dawg"></div><figcaption><b>Slaw</b><span>$8.95</span></figcaption></figure>
+      <figure class="shot" data-cursor="view"><div class="shot-img"><img loading="lazy" decoding="async" width="800" height="534" src="img/counter.jpg" alt="Dawgs on the Dawg City counter"></div><figcaption><b>Counter Classics</b><span>From $7.95</span></figcaption></figure>
+      <figure class="shot tall" data-cursor="view"><div class="shot-img"><img loading="lazy" decoding="async" width="800" height="1001" src="img/hickory.jpg" alt="Hickory dawg"></div><figcaption><b>Hickory</b><span>$8.95</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -235,7 +255,7 @@
   <div class="ghost" data-ghost>Est. 2021</div>
   <div class="wrap story">
     <div class="story-media">
-      <div class="frame" id="story-frame"><img id="story-img" src="img/counter.jpg" alt="Hotdogs ready at the Dawg City counter"></div>
+      <div class="frame" id="story-frame"><img loading="lazy" decoding="async" width="800" height="534" id="story-img" src="img/counter.jpg" alt="Hotdogs ready at the Dawg City counter"></div>
       <div class="badge"><div><b>2021</b><span>Family<br>owned</span></div></div>
     </div>
     <div>
@@ -263,12 +283,19 @@
     </div>
     <div class="visit">
       <div class="map rv">
+        <div class="map-fallback">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <b>3rd St. Market Hall</b>
+          <span>First Floor, West Hall<br>275 W Wisconsin Ave, Milwaukee, WI 53203</span>
+          <a href="https://maps.google.com/?q=3rd+St+Market+Hall+Milwaukee" target="_blank" rel="noopener">Open in Google Maps</a>
+        </div>
         <iframe title="Map to 3rd St. Market Hall" loading="lazy" src="https://maps.google.com/maps?q=3rd%20St%20Market%20Hall%2C%20275%20W%20Wisconsin%20Ave%2C%20Milwaukee&z=16&output=embed"></iframe>
         <div class="map-pin"><b>Dawg City</b>275 W Wisconsin Ave, Milwaukee</div>
       </div>
       <div class="info-stack">
         <div class="panel-card rv">
           <h3>Hours</h3>
+          <p class="hours-status" id="hours-status"></p>
           <ul class="hours" id="hours">
             <li data-days="1,2,3,4"><span>Monday to Thursday</span><span>11 AM to 8 PM</span></li>
             <li data-days="5,6"><span>Friday and Saturday</span><span>11 AM to 10 PM</span></li>
@@ -296,7 +323,7 @@
 
 <div id="final">
   <div class="final">
-    <div class="final-bg" id="final-bg"><img src="img/dog-jalapeno.jpg" alt="" aria-hidden="true"></div>
+    <div class="final-bg" id="final-bg"><img loading="lazy" decoding="async" width="396" height="297" src="img/dog-jalapeno.jpg" alt="" aria-hidden="true"></div>
     <div>
       <h2 class="split">Hungry <span class="serif">yet?</span></h2>
       <p class="rv">Skip the line. Order ahead for pickup, or get it delivered hot to your door.</p>
@@ -314,9 +341,11 @@
   </div>
 </div>
 
+</main>
+
 <footer>
   <div class="foot-top">
-    <img src="img/logo-t.png" alt="Dawg City logo">
+    <img loading="lazy" decoding="async" width="216" height="234" src="img/logo-t.png" alt="Dawg City logo">
     <div class="foot-links">
       <a href="https://www.instagram.com/dawgcityhotdog/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.facebook.com/DawgCityHotDog" target="_blank" rel="noopener">Facebook</a>
@@ -332,9 +361,22 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="main.js"></script>
+<!-- Quick actions: fixed bar on phones, appears after the hero CTAs scroll away -->
+<nav class="quickbar" id="quickbar" aria-label="Quick actions">
+  <a class="qb qb-red" href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Pickup</span></a>
+  <a class="qb" href="https://www.doordash.com/store/dawg-city---3rd-street-market-hall-milwaukee-23983580/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><span>Delivery</span></a>
+  <a class="qb" href="https://maps.google.com/?q=3rd+St+Market+Hall+Milwaukee" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg><span>Directions</span></a>
+</nav>
+<a class="to-top" id="to-top" href="#hero" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="main.js" defer></script>
 </body>
 </html>

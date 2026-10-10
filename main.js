@@ -5,24 +5,92 @@
   var hasGsap = !!(window.gsap && window.ScrollTrigger);
   var body = document.body;
 
-  /* ── live open/closed status + highlight today's hours ── */
-  (function () {
-    var now = new Date(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
-    var close = d === 0 ? 19 : (d === 5 || d === 6) ? 22 : 20;
-    var open = h >= 11 && h < close;
-    var el = document.getElementById('open-status');
-    var fmt = function (x) { return (x > 12 ? x - 12 : x) + (x >= 12 ? ' PM' : ' AM'); };
-    el.textContent = open ? 'Open now until ' + fmt(close) + ' at 3rd St. Market Hall'
-                          : 'Opens at 11 AM at 3rd St. Market Hall';
-    if (!open) el.parentElement.classList.add('closed');
+  /* ── live open/closed status + today's hours, always in Milwaukee time ──
+     Hours below must match the Hours list in index.html. */
+  var CLOSE = { 0: 19, 1: 20, 2: 20, 3: 20, 4: 20, 5: 22, 6: 22 }, OPEN = 11;
+  function mkeNow() {
+    var d = new Date();
+    try {
+      var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(d);
+      var get = function (t) { for (var i = 0; i < parts.length; i++) if (parts[i].type === t) return parts[i].value; };
+      var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+      if (day > -1) return { day: day, h: (+get('hour') % 24) + (+get('minute')) / 60 };
+    } catch (e) {}
+    return { day: d.getDay(), h: d.getHours() + d.getMinutes() / 60 };
+  }
+  function fmt(x) { return (x > 12 ? x - 12 : x) + (x >= 12 ? ' PM' : ' AM'); }
+  function renderStatus() {
+    var n = mkeNow(), close = CLOSE[n.day], open = n.h >= OPEN && n.h < close;
+    var early = n.h < OPEN;
+    var tag = document.getElementById('open-status'), hs = document.getElementById('hours-status');
+    if (tag) {
+      tag.textContent = open ? 'Open now until ' + fmt(close) + ' at 3rd St. Market Hall'
+                             : 'Opens ' + (early ? 'today' : 'tomorrow') + ' at 11 AM at 3rd St. Market Hall';
+      tag.parentElement.classList.toggle('closed', !open);
+    }
+    if (hs) {
+      hs.textContent = open ? 'Open now. Closes at ' + fmt(close) + ' today.'
+                            : 'Closed now. Opens ' + (early ? 'today' : 'tomorrow') + ' at 11 AM.';
+      hs.classList.toggle('closed', !open);
+    }
     document.querySelectorAll('#hours li').forEach(function (li) {
-      if (li.dataset.days.split(',').indexOf(String(d)) > -1) li.classList.add('today');
+      li.classList.toggle('today', li.dataset.days.split(',').indexOf(String(n.day)) > -1);
     });
+  }
+  renderStatus();
+  setInterval(renderStatus, 60000);
+
+  /* ── map fallback: if the Google embed never loads, show the address card underneath ── */
+  (function () {
+    var map = document.querySelector('.map'), fr = map && map.querySelector('iframe');
+    if (!fr) return;
+    var loaded = false, timer;
+    fr.addEventListener('load', function () { loaded = true; clearTimeout(timer); });
+    var fail = function () { if (!loaded) map.classList.add('failed'); };
+    if (navigator.onLine === false) return fail();
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { io.disconnect(); timer = setTimeout(fail, 10000); }
+      }, { rootMargin: '200px' });
+      io.observe(map);
+    }
   })();
 
-  /* ── menu tabs with sliding indicator ── */
+  /* ── quick-action bar + back-to-top visibility (works with or without smooth scroll) ── */
+  var heroEl = document.getElementById('hero'), ticking = false;
+  function onScrollUI() {
+    ticking = false;
+    var y = window.scrollY || document.documentElement.scrollTop;
+    body.classList.toggle('show-qb', y > heroEl.offsetHeight * 0.75);
+    body.classList.toggle('show-top', y > window.innerHeight * 1.5);
+    var tabsEl = document.querySelector('.tabs');
+    if (tabsEl) {
+      var top = parseFloat(getComputedStyle(tabsEl).top) || 0, shell = tabsEl.parentElement.getBoundingClientRect();
+      tabsEl.classList.toggle('stuck', shell.top < top - 6 && shell.bottom > top + 120);
+    }
+  }
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScrollUI); } }, { passive: true });
+  addEventListener('resize', onScrollUI);
+  onScrollUI();
+
+  var lenis = null;
+  function scrollToEl(t, done) {
+    if (lenis) lenis.scrollTo(t, { offset: t === document.body ? 0 : -10, duration: 1.2, onComplete: done });
+    else { (t === document.body ? window.scrollTo(0, 0) : t.scrollIntoView()); if (done) done(); }
+  }
+  function focusEl(t) {
+    if (!t.hasAttribute('tabindex') && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) t.setAttribute('tabindex', '-1');
+    t.focus({ preventScroll: true });
+  }
+  document.getElementById('to-top').addEventListener('click', function (e) {
+    e.preventDefault();
+    scrollToEl(document.body, function () { focusEl(document.querySelector('.nav-logo')); });
+  });
+
+  /* ── menu tabs with sliding indicator, arrow-key support, sticky-aware ── */
   function setupTabs(animate) {
-    var tabs = document.querySelectorAll('.tab'), ind = document.getElementById('tab-ind');
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab')), ind = document.getElementById('tab-ind');
+    var shell = document.querySelector('.menu-shell'), bar = document.querySelector('.tabs');
     function moveInd(tb) {
       ind.style.left = tb.offsetLeft + 'px'; ind.style.top = tb.offsetTop + 'px';
       ind.style.width = tb.offsetWidth + 'px'; ind.style.height = tb.offsetHeight + 'px';
@@ -31,18 +99,34 @@
     moveInd(cur());
     addEventListener('resize', function () { moveInd(cur()); });
     if (document.fonts) document.fonts.ready.then(function () { moveInd(cur()); });
-    tabs.forEach(function (tb) {
-      tb.addEventListener('click', function () {
-        if (tb.classList.contains('on')) return;
-        tabs.forEach(function (x) { x.classList.remove('on'); x.setAttribute('aria-selected', 'false'); });
-        tb.classList.add('on'); tb.setAttribute('aria-selected', 'true'); moveInd(tb);
-        document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('on'); });
-        var p = document.getElementById(tb.dataset.panel); p.classList.add('on');
-        if (animate) {
-          gsap.fromTo(p.querySelectorAll('.mi, .fish-card'), { opacity: 0, y: 18 },
-            { opacity: 1, y: 0, duration: .55, ease: 'power3.out', stagger: .03 });
-          ScrollTrigger.refresh();
-        }
+    function select(tb) {
+      if (tb.classList.contains('on')) return;
+      tabs.forEach(function (x) { x.classList.remove('on'); x.setAttribute('aria-selected', 'false'); x.setAttribute('tabindex', '-1'); });
+      tb.classList.add('on'); tb.setAttribute('aria-selected', 'true'); tb.setAttribute('tabindex', '0'); moveInd(tb);
+      document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('on'); });
+      var p = document.getElementById(tb.dataset.panel); p.classList.add('on');
+      /* if the tab bar is stuck partway down a long list, jump back to the start of the new list */
+      var stickTop = parseFloat(getComputedStyle(bar).top) || 0;
+      if (shell.getBoundingClientRect().top < stickTop - 6) {
+        /* land the top of the menu card just under the nav so the first item is never hidden */
+        var y = shell.getBoundingClientRect().top + (window.scrollY || 0) - 84;
+        if (lenis) lenis.scrollTo(y, { immediate: true }); else window.scrollTo(0, y);
+      }
+      if (animate) {
+        gsap.fromTo(p.querySelectorAll('.mi, .fish-card'), { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: .55, ease: 'power3.out', stagger: .03 });
+        ScrollTrigger.refresh();
+      }
+    }
+    tabs.forEach(function (tb, i) {
+      tb.addEventListener('click', function () { select(tb); });
+      tb.addEventListener('keydown', function (e) {
+        var k = e.key, j = -1;
+        if (k === 'ArrowRight' || k === 'ArrowDown') j = (i + 1) % tabs.length;
+        else if (k === 'ArrowLeft' || k === 'ArrowUp') j = (i - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') j = 0; else if (k === 'End') j = tabs.length - 1;
+        if (j < 0) return;
+        e.preventDefault(); tabs[j].focus(); select(tabs[j]);
       });
     });
   }
@@ -89,7 +173,7 @@
   document.querySelectorAll('.split').forEach(splitWords);
 
   /* ── smooth scroll ── */
-  var lenis = new Lenis({ lerp: .085 });
+  lenis = new Lenis({ lerp: .085 });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
   gsap.ticker.lagSmoothing(0);
@@ -98,7 +182,9 @@
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var t = document.querySelector(a.getAttribute('href')); if (!t) return;
-      e.preventDefault(); lenis.scrollTo(t, { offset: -10, duration: 1.4 });
+      e.preventDefault();
+      if (a.id === 'to-top') return;
+      lenis.scrollTo(t, { offset: t.id === 'hero' ? 0 : -10, duration: 1.4, onComplete: function () { focusEl(t); } });
     });
   });
 
@@ -107,10 +193,12 @@
   lenis.on('scroll', function (e) {
     var y = e.scroll;
     nav.classList.toggle('scrolled', y > 40);
-    nav.classList.toggle('hide', y > lastY + 2 && y > 500);
-    if (y < lastY - 2) nav.classList.remove('hide');
+    if (y > lastY + 2 && y > 500 && !nav.contains(document.activeElement)) nav.classList.add('hide');
+    if (y < lastY - 2 || y <= 500) nav.classList.remove('hide');
+    body.classList.toggle('nav-hidden', nav.classList.contains('hide'));
     lastY = y;
   });
+  nav.addEventListener('focusin', function () { nav.classList.remove('hide'); body.classList.remove('nav-hidden'); });
 
   /* ── initial hidden states ── */
   gsap.set('.rv', { opacity: 0, y: 40 });
@@ -144,6 +232,10 @@
     .add(function () { startSite(); }, '-=.55')
     .set('#loader', { display: 'none' });
   setTimeout(function () { if (!started) { gsap.set('#loader', { display: 'none' }); startSite(); intro.progress(1); } }, 5000);
+  /* repeat visit in this session: no loader, quicker intro */
+  if (document.documentElement.classList.contains('no-loader')) {
+    loadTl.kill(); gsap.set('#loader', { display: 'none' }); intro.timeScale(1.6); startSite();
+  }
 
   /* ── hero scroll parallax ── */
   gsap.to('.hero-media img', { yPercent: 12, ease: 'none',
@@ -195,6 +287,10 @@
   var mm = gsap.matchMedia();
   mm.add('(min-width: 901px)', function () {
     var track = document.getElementById('reel-track');
+    /* photos are lazy-loaded; fetch the whole reel just before it pins so none slide in blank */
+    ScrollTrigger.create({ trigger: '#reel', start: 'top bottom+=800', once: true, onEnter: function () {
+      track.querySelectorAll('img').forEach(function (i) { i.loading = 'eager'; });
+    } });
     var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth); };
     var tw = gsap.to(track, { x: function () { return -dist(); }, ease: 'none',
       scrollTrigger: { trigger: '#reel-pin', start: 'center center', end: function () { return '+=' + dist(); },

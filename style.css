@@ -9,6 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
+html{overflow-x:clip}
 body{background:var(--bg);color:var(--cream);font-family:'Barlow',sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body.loading{overflow:hidden}
 img{display:block;max-width:100%}
@@ -113,7 +114,7 @@ nav.hide{transform:translate(-50%,-140%)}
 .hero-tag i{width:8px;height:8px;border-radius:50%;background:#45D483;box-shadow:0 0 0 4px rgba(69,212,131,.18);animation:live 2s infinite}
 .hero-tag.closed i{background:var(--red);box-shadow:0 0 0 4px rgba(227,41,43,.2)}
 @keyframes live{50%{box-shadow:0 0 0 7px rgba(69,212,131,0)}}
-h1{font-size:clamp(66px,12vw,196px);line-height:.88}
+h1{font-size:clamp(42px,13.6vw,196px);line-height:.88}
 h1 .ln{display:block;overflow:hidden;padding-bottom:.05em}
 h1 .wd{display:inline-block;white-space:nowrap}
 h1 .ch{display:inline-block;will-change:transform}

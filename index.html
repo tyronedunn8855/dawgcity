@@ -20,12 +20,12 @@
 <link rel="canonical" href="https://dawgcity.vercel.app/">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="preload" as="image" href="img/hero.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="img/hero-1800.webp" imagesrcset="img/hero-1200.webp 1200w, img/hero-1800.webp 1800w, img/hero-2400.webp 2400w" imagesizes="100vw" fetchpriority="high">
 <script>
 /* Runs before paint: mark JS on, and skip the intro loader for anyone who has
    already seen it this browser session (or who prefers reduced motion). */
 (function(d){var c=d.documentElement.classList;c.add('js');
-try{if(sessionStorage.getItem('dc-seen')||!!window.__rm)c.add('no-loader');sessionStorage.setItem('dc-seen','1');}catch(e){}
+/* the loader plays on every load; the footer motion toggle skips it */if(window.__rm)c.add('no-loader');
 /* safety net: if scripts fail to load, never leave the page stuck behind the loader */
 setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.classList.remove('loading');c.add('no-loader');}},7000);})(document);
 </script>
@@ -59,7 +59,7 @@ setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.clas
 
 <main id="main">
 <header id="hero">
-  <div class="hero-media"><img id="hero-img" src="img/hero.jpg" width="1209" height="788" fetchpriority="high" alt="Chili cheese and Chicago-style hotdogs from Dawg City"></div>
+  <div class="hero-media"><img id="hero-img" src="img/hero-1800.webp" srcset="img/hero-1200.webp 1200w, img/hero-1800.webp 1800w, img/hero-2400.webp 2400w" sizes="100vw" width="1800" height="1173" fetchpriority="high" alt="Chili cheese and Chicago-style hotdogs from Dawg City"></div>
   <div class="hero-inner">
     <div class="hero-tag rv-hero"><i></i><span id="open-status">3rd St. Market Hall, Milwaukee</span></div>
     <h1 aria-label="The Specialty Dawg of Milwaukee">
@@ -83,12 +83,54 @@ setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.clas
   <div class="scroll-ind">Scroll</div>
 </header>
 
+<!-- At a glance: today's status and hours, where to find the stall, how to order -->
+<section id="glance" aria-label="Hours, location and ordering">
+  <div class="glance">
+    <div class="g-item">
+      <span class="g-k">Today</span>
+      <b class="g-v" id="glance-status">Open daily from 11 AM</b>
+      <span class="g-s" id="glance-hours">Mon to Thu 11 to 8 · Fri and Sat 11 to 10 · Sun 11 to 7</span>
+    </div>
+    <div class="g-item">
+      <span class="g-k">Where</span>
+      <b class="g-v">3rd St. Market Hall, West Hall</b>
+      <a class="g-s g-link" href="https://maps.google.com/?q=3rd+St+Market+Hall+Milwaukee" target="_blank" rel="noopener">275 W Wisconsin Ave · Directions</a>
+    </div>
+    <div class="g-item">
+      <span class="g-k">Order</span>
+      <b class="g-v">Pickup or delivery</b>
+      <span class="g-s"><a class="g-link" href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">Pickup on me&amp;u</a> · <a class="g-link" href="https://www.doordash.com/store/dawg-city---3rd-street-market-hall-milwaukee-23983580/" target="_blank" rel="noopener">DoorDash</a></span>
+    </div>
+  </div>
+</section>
+
 <div class="marquee" aria-hidden="true">
   <div class="mq-track">
     <div>100% All-Beef<svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg><span class="o">Natural Casing</span><svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg>Usinger Brats<svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg><span class="o">Friday Fish Dinners</span><svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg>Est. 2021<svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg></div>
     <div>100% All-Beef<svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg><span class="o">Natural Casing</span><svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg>Usinger Brats<svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg><span class="o">Friday Fish Dinners</span><svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg>Est. 2021<svg class="star" viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7 5.5 2.7 9.5L12 18l-7.7 6L7 14.5 0 9h9z"/></svg></div>
   </div>
 </div>
+
+<!-- The live 3D dawg (dawg3d.js): turns with scroll and loads up with mustard and ketchup; tilts toward the cursor -->
+<section id="dawg3d" aria-labelledby="d3-title">
+  <div class="wrap d3-grid">
+    <div class="d3-copy">
+      <div class="eyebrow rv"><b>3D</b>Spin the dawg</div>
+      <h2 class="split" id="d3-title">19 styles, <span class="serif">all beef</span></h2>
+      <p class="d3-sub rv">Every dawg starts the same way: 100% all-beef in natural casing. Keep scrolling to load this one up with mustard and ketchup.</p>
+      <div class="hero-cta rv">
+        <span class="mag"><a class="btn btn-red" href="https://www.meandu.app/dawgcity-3rdstmh/pickup/dawg-city" target="_blank" rel="noopener">
+          <span class="btn-label"><span>Order Pickup</span></span>
+          <span class="btn-ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a></span>
+      </div>
+    </div>
+    <figure class="d3-stage" data-state="poster">
+      <img class="d3-poster" src="img/dawg-3d.webp" width="1200" height="900" alt="3D model of an all-beef hotdog in a split bun with mustard and ketchup" loading="lazy" decoding="async">
+      <canvas aria-hidden="true"></canvas>
+    </figure>
+  </div>
+</section>
 
 <section id="signature">
   <div class="ghost" data-ghost>Signature</div>
@@ -273,6 +315,20 @@ setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.clas
   </div>
 </section>
 
+<!-- Reviews: only real Google reviews, quoted word for word (see reviews.js). Hidden while REVIEWS is empty. -->
+<section id="reviews" hidden aria-labelledby="rev-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow rv"><b>Google</b>Reviews</div>
+        <h2 class="split" id="rev-title">Word on <span class="serif">the street</span></h2>
+      </div>
+      <a class="rev-more rv" id="rev-more" href="https://www.google.com/maps/search/?api=1&amp;query=Dawg+City+3rd+Street+Market+Hall+Milwaukee" target="_blank" rel="noopener">Read more on Google</a>
+    </div>
+    <ul class="rev-grid" id="rev-grid"></ul>
+  </div>
+</section>
+
 <section id="visit">
   <div class="ghost" data-ghost>Visit</div>
   <div class="wrap">
@@ -378,7 +434,10 @@ setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.clas
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="reviews.js" defer></script>
 <script src="main.js" defer></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module" src="dawg3d.js"></script>
 <script>(function(){var b=document.querySelector('.motion-toggle');if(!b)return;var off=!!window.__rm;b.textContent=off?'Turn motion on':'Turn motion off';b.setAttribute('aria-pressed',off?'true':'false');b.addEventListener('click',function(){try{localStorage.setItem('dc-motion',off?'on':'off')}catch(e){}location.reload()})})();</script>
 </body>
 </html>

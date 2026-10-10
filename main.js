@@ -36,9 +36,34 @@
     document.querySelectorAll('#hours li').forEach(function (li) {
       li.classList.toggle('today', li.dataset.days.split(',').indexOf(String(n.day)) > -1);
     });
+    var gs = document.getElementById('glance-status'), gh = document.getElementById('glance-hours');
+    if (gs) {
+      gs.textContent = open ? 'Open now, until ' + fmt(close) : 'Closed now, opens ' + (early ? 'today' : 'tomorrow') + ' at 11 AM';
+      gs.parentElement.classList.toggle('closed', !open);
+    }
+    if (gh) gh.textContent = 'Today: 11 AM to ' + fmt(close) + ' · Mon to Thu to 8, Fri and Sat to 10, Sun to 7';
   }
   renderStatus();
   setInterval(renderStatus, 60000);
+
+  /* ── reviews: real Google reviews from reviews.js, rendered as text only. Hidden while empty. ── */
+  (function () {
+    var list = window.REVIEWS || [], sec = document.getElementById('reviews'), grid = document.getElementById('rev-grid');
+    if (!sec || !grid || !list.length) return;
+    var more = document.getElementById('rev-more');
+    if (more && window.REVIEWS_URL) more.href = window.REVIEWS_URL;
+    list.slice(0, 6).forEach(function (r) {
+      var li = document.createElement('li'); li.className = 'rev rv';
+      var stars = Math.max(0, Math.min(5, Math.round(+r.stars || 0)));
+      var st = document.createElement('p'); st.className = 'rev-stars'; st.setAttribute('aria-label', stars + ' out of 5 stars');
+      st.textContent = '★★★★★'.slice(0, stars) + '☆☆☆☆☆'.slice(0, 5 - stars);
+      var q = document.createElement('blockquote'); q.className = 'rev-text'; q.textContent = r.text || '';
+      var who = document.createElement('p'); who.className = 'rev-who';
+      who.textContent = (r.name || 'Google reviewer') + (r.when ? ' · ' + r.when : '') + ' · Google';
+      li.appendChild(st); li.appendChild(q); li.appendChild(who); grid.appendChild(li);
+    });
+    sec.hidden = false;
+  })();
 
   /* ── map fallback: if the Google embed never loads, show the address card underneath ── */
   (function () {
@@ -222,19 +247,36 @@
     if (started) return; started = true;
     body.classList.remove('loading'); lenis.start(); intro.play(); ScrollTrigger.refresh();
   }
-  var loadTl = gsap.timeline({ onComplete: startSite });
+  /* The count follows real loading (fonts and the hero photo), eased so it never jumps, with a short
+     floor so it reads, then the sheet lifts off the hero. Any key or tap skips it. */
+  var parts = { fonts: 0, hero: 0 }, t0 = performance.now(), MIN = 900, MAX = 3200, outPlayed = false;
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () { parts.fonts = 1; });
+  var heroImg = document.getElementById('hero-img');
+  if (!heroImg || heroImg.complete) parts.hero = 1;
+  else { heroImg.addEventListener('load', function () { parts.hero = 1; }); heroImg.addEventListener('error', function () { parts.hero = 1; }); }
+  gsap.from('#loader img', { scale: .8, opacity: 0, duration: .6, ease: 'back.out(1.7)' });
+  var loadTl = gsap.timeline({ paused: true, onComplete: function () { gsap.set('#loader', { display: 'none' }); } });
   loadTl
-    .from('#loader img', { scale: .8, opacity: 0, duration: .6, ease: 'back.out(1.7)' })
-    .to(prog, { v: 100, duration: 1.2, ease: 'power2.inOut', onUpdate: function () {
-        num.textContent = Math.round(prog.v); bar.style.width = prog.v + '%'; } }, .1)
-    .to('#loader img, .ld-row', { opacity: 0, y: -16, duration: .35, ease: 'power2.in', stagger: .05 })
-    .to('#loader', { clipPath: 'inset(0% 0% 100% 0%)', duration: .85, ease: 'power4.inOut' }, '-=.05')
-    .add(function () { startSite(); }, '-=.55')
-    .set('#loader', { display: 'none' });
+    .to('#loader img, .ld-row', { opacity: 0, y: -16, duration: .3, ease: 'power2.out', stagger: .05 })
+    .to('#loader', { clipPath: 'inset(0% 0% 100% 0%)', duration: .8, ease: 'power4.inOut' }, '-=.05')
+    .add(function () { startSite(); }, '-=.6');
+  function ldTick() {
+    if (outPlayed) return;
+    var el = performance.now() - t0;
+    var target = Math.min((parts.fonts + parts.hero) / 2, el / MIN) * 100;
+    prog.v += (target - prog.v) * 0.16;
+    if (target >= 100 && prog.v > 98.5) prog.v = 100;
+    num.textContent = Math.round(prog.v); bar.style.width = prog.v + '%';
+    if (prog.v >= 100 || el > MAX) { outPlayed = true; gsap.ticker.remove(ldTick); num.textContent = '100'; bar.style.width = '100%'; loadTl.play(); }
+  }
+  gsap.ticker.add(ldTick);
+  var skipLd = function () { if (!outPlayed) { outPlayed = true; gsap.ticker.remove(ldTick); loadTl.timeScale(1.8).play(); } };
+  addEventListener('keydown', skipLd, { once: true });
+  document.getElementById('loader').addEventListener('pointerdown', skipLd, { once: true });
   setTimeout(function () { if (!started) { gsap.set('#loader', { display: 'none' }); startSite(); intro.progress(1); } }, 5000);
-  /* repeat visit in this session: no loader, quicker intro */
+  /* no loader (motion turned off): quicker intro */
   if (document.documentElement.classList.contains('no-loader')) {
-    loadTl.kill(); gsap.set('#loader', { display: 'none' }); intro.timeScale(1.6); startSite();
+    outPlayed = true; gsap.ticker.remove(ldTick); loadTl.kill(); gsap.set('#loader', { display: 'none' }); intro.timeScale(1.6); startSite();
   }
 
   /* ── hero scroll parallax ── */
@@ -276,6 +318,25 @@
       gsap.to(o, { v: end, duration: 1.6, ease: 'power2.out', onUpdate: function () { el.textContent = Math.round(o.v); } });
     } });
   });
+
+  /* ── section transitions: each section's content settles in from below and eases back as it leaves,
+     so one section hands off to the next instead of just scrolling past ── */
+  gsap.utils.toArray('#signature > .wrap, #menu > .wrap, #story > .wrap, #reviews > .wrap, #visit > .wrap').forEach(function (w) {
+    gsap.fromTo(w, { y: 90, scale: .965 }, { y: 0, scale: 1, ease: 'none',
+      scrollTrigger: { trigger: w.parentElement, start: 'top bottom', end: 'top 35%', scrub: .6 } });
+    gsap.to(w, { y: -60, opacity: .35, ease: 'none',
+      scrollTrigger: { trigger: w.parentElement, start: 'bottom 45%', end: 'bottom top', scrub: .6 } });
+  });
+  /* the at-a-glance strip slides up out of the hero */
+  gsap.from('.g-item', { y: 40, opacity: 0, duration: .9, ease: 'power3.out', stagger: .1,
+    scrollTrigger: { trigger: '#glance', start: 'top 92%' } });
+  /* the 3D dawg: copy slides in from the left while the stage opens */
+  gsap.from('.d3-copy', { x: -80, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#dawg3d', start: 'top 85%', end: 'top 35%', scrub: .6 } });
+  gsap.fromTo('.d3-stage', { clipPath: 'inset(12% 12% 12% 12% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
+    scrollTrigger: { trigger: '#dawg3d', start: 'top 90%', end: 'top 30%', scrub: .6 } });
+  /* the map wipes open */
+  gsap.fromTo('.map', { clipPath: 'inset(0% 0% 100% 0% round 26px)' }, { clipPath: 'inset(0% 0% 0% 0% round 26px)', ease: 'none',
+    scrollTrigger: { trigger: '#visit', start: 'top 80%', end: 'top 30%', scrub: .6 } });
 
   /* ── final band parallax ── */
   gsap.fromTo('#final-bg', { yPercent: -8 }, { yPercent: 8, ease: 'none',

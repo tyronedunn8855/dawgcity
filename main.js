@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduced = !!window.__rm;
   var fine = matchMedia('(pointer: fine)').matches;
   var hasGsap = !!(window.gsap && window.ScrollTrigger);
   var body = document.body;

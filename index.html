@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>/* Motion: full by default. The footer button turns it off (saved per browser) and adds html.rm. */(function(d){var rm=false;try{rm=localStorage.getItem('dc-motion')==='off'}catch(e){}window.__rm=rm;if(rm)d.classList.add('rm')})(document.documentElement)</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dawg City | Specialty Hotdogs, Milwaukee</title>
 <meta name="description" content="Dawg City Specialty Hotdogs. 100% all-beef gourmet hotdogs, sausages, and brats inside 3rd St. Market Hall, Milwaukee. Order pickup or delivery.">
@@ -24,7 +25,7 @@
 /* Runs before paint: mark JS on, and skip the intro loader for anyone who has
    already seen it this browser session (or who prefers reduced motion). */
 (function(d){var c=d.documentElement.classList;c.add('js');
-try{if(sessionStorage.getItem('dc-seen')||matchMedia('(prefers-reduced-motion: reduce)').matches)c.add('no-loader');sessionStorage.setItem('dc-seen','1');}catch(e){}
+try{if(sessionStorage.getItem('dc-seen')||!!window.__rm)c.add('no-loader');sessionStorage.setItem('dc-seen','1');}catch(e){}
 /* safety net: if scripts fail to load, never leave the page stuck behind the loader */
 setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.classList.remove('loading');c.add('no-loader');}},7000);})(document);
 </script>
@@ -356,7 +357,7 @@ setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.clas
   </div>
   <div class="wordmark" aria-hidden="true">Dawg City</div>
   <div class="foot-bottom">
-    <span>© 2026 Dawg City Specialty Hotdogs. Milwaukee, WI.</span>
+    <span>© 2026 Dawg City Specialty Hotdogs. Milwaukee, WI.</span> <button type="button" class="motion-toggle" aria-pressed="false">Turn motion off</button>
     <span>Site by Tyrone Dunn</span>
   </div>
 </footer>
@@ -378,5 +379,6 @@ setTimeout(function(){var b=d.body;if(b&&b.classList.contains('loading')){b.clas
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="main.js" defer></script>
+<script>(function(){var b=document.querySelector('.motion-toggle');if(!b)return;var off=!!window.__rm;b.textContent=off?'Turn motion on':'Turn motion off';b.setAttribute('aria-pressed',off?'true':'false');b.addEventListener('click',function(){try{localStorage.setItem('dc-motion',off?'on':'off')}catch(e){}location.reload()})})();</script>
 </body>
 </html>
